@@ -4,7 +4,7 @@ import {useParams, Link, useNavigate} from 'react-router-dom';
 import { deletePost } from '../redux/modules/postReducer';
 
 const PostDetail = () => {
-    const {postId} = useParams();
+    const {postId} = useParams(); // 동적 파라미터 사용
     const post = useSelector(
         state => state.posts.find(p => p.id === parseInt(postId))
     );
@@ -16,6 +16,7 @@ const PostDetail = () => {
         return <p>해당 게시물을 찾을 수 없습니다.</p>;
     }
 
+    // 게시물 삭제 핸들러
     const handleDelete = () => {
         dispatch(deletePost(post.id));
         navigate('/');

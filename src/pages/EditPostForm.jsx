@@ -4,8 +4,7 @@ import {editPost} from '../redux/modules/postReducer';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 
 const EditPostForm = () => {
-    const {postId} = useParams();
-    console.log(postId);
+    const {postId} = useParams(); // 동적 파라미터 사용
     const post = useSelector(
         state => state.posts.find(p => p.id === parseInt(postId))
     );
@@ -15,6 +14,7 @@ const EditPostForm = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    // 게시물 정보를 상태에 설정
     useEffect(() => {
         if (post) {
             setTitle(post.title);
