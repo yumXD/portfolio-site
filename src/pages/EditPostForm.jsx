@@ -2,6 +2,99 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {editPost} from '../redux/modules/postReducer';
 import {Link, useNavigate, useParams} from 'react-router-dom';
+import styled from 'styled-components';
+
+const FormContainer = styled.div`
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #cac3c3;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h2`
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+`;
+
+const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+`;
+
+const FormGroup = styled.div`
+    margin-bottom: 15px;
+`;
+
+const Label = styled.label`
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: bold;
+`;
+
+const Input = styled.input`
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    &:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+    }
+`;
+
+const Textarea = styled.textarea`
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px;
+    resize: vertical;
+    &:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+    }
+`;
+
+const SubmitButton = styled.button`
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #8bae69;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+    &:hover:not(:disabled) {
+        background-color: #667f4c;
+    }
+`;
+
+const CancelLink = styled(Link)`
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    text-align: center;
+    &:hover {
+        text-decoration: underline;
+    }
+`;
 
 const EditPostForm = () => {
     const {postId} = useParams(); // 동적 파라미터 사용
@@ -44,7 +137,7 @@ const EditPostForm = () => {
             title: title,
             content: content
         };
-        
+
         dispatch(editPost(post.id, updatedPost));
         navigate(`/post/${post.id}`);
     };
@@ -54,28 +147,32 @@ const EditPostForm = () => {
     }
 
     return (
-        <div>
-            <h2>게시물 수정</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">제목:</label>
-                    <input
+         <FormContainer>
+            <Title>게시물 수정</Title>
+            <StyledForm onSubmit={handleSubmit}>
+                <FormGroup>
+                    <Label htmlFor="title">제목:</Label>
+                    <Input
                         type="text"
                         id="title"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}/>
-                </div>
-                <div>
-                    <label htmlFor="content">내용:</label>
-                    <textarea
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label htmlFor="content">내용:</Label>
+                    <Textarea
                         id="content"
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}/>
-                </div>
-                <button type="submit" disabled={!isFormValid}>수정</button>
-                <Link to={`/post/${post.id}`}>취소</Link>
-            </form>
-        </div>
+                        onChange={(e) => setContent(e.target.value)}
+                    />
+                </FormGroup>
+                <SubmitButton type="submit" disabled={!isFormValid}>
+                    수정
+                </SubmitButton>
+                <CancelLink to={`/post/${post.id}`}>취소</CancelLink>
+            </StyledForm>
+        </FormContainer>
     );
 };
 

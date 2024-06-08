@@ -16,9 +16,9 @@ export const deletePost = (postId) => ({type: DELETE_POST, postId});
 // 초기 상태 설정
 const initialState = {
   posts: [
-    { id: 1, title: '첫 번째 게시물', content: '내용 1' },
-    { id: 2, title: '두 번째 게시물', content: '내용 2' },
-    { id: 3, title: '세 번째 게시물', content: '내용 3' }
+    { id: 1, title: '첫 번째 게시물입니다.ㅎㅎ', content: '내용 1' },
+    { id: 2, title: '두 번째 게시물입니다.ㅎㅎ', content: '내용 2' },
+    { id: 3, title: '세 번째 게시물입니다.ㅎㅎ', content: '내용 3' }
   ]
 };
 
