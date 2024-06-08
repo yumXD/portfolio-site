@@ -26,8 +26,8 @@ const Content = styled.p`
     font-size: 1.2rem;
     color: #555;
     line-height: 1.6;
-    min-height: 450px;
-    max-height: 450px;
+    min-height: 400px;
+    max-height: 400px;
     overflow-y: auto;
     word-wrap: break-word; /* Prevent overflow */
     white-space: pre-wrap; /* Preserve whitespace and line breaks */

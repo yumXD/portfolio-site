@@ -143,6 +143,7 @@ const AddPostForm = () => {
                         type="text"
                         id="title"
                         value={title}
+                        placeholder="제목을 입력해주세요."
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </FormGroup>
@@ -151,6 +152,7 @@ const AddPostForm = () => {
                     <Textarea
                         id="content"
                         value={content}
+                        placeholder="내용을 입력해주세요."
                         onChange={(e) => setContent(e.target.value)}
                     />
                 </FormGroup>
