@@ -7,7 +7,8 @@ import styled from 'styled-components';
 const FormContainer = styled.div`
     padding: 20px;
     max-width: 800px;
-    margin: 0 auto;
+    min-height: 600px; // !
+    margin: 10px auto;
     background-color: #cac3c3;
     border-radius: 10px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
@@ -58,8 +59,8 @@ const Textarea = styled.textarea`
     border: 1px solid #ccc;
     width: 100%;
     box-sizing: border-box;
-    height: 150px;
-    resize: vertical;
+    height: 250px; // !
+    resize: none; // 크기조절 no
     &:focus {
         border-color: #007bff;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);

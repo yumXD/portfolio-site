@@ -7,6 +7,7 @@ import styled from 'styled-components';
 const DetailContainer = styled.div`
     padding: 20px;
     max-width: 800px;
+    min-height: 600px;
     margin: 0 auto;
     background-color: #cac3c3;
     border-radius: 10px;
@@ -20,11 +21,15 @@ const Title = styled.h2`
     color: #333;
 `;
 
-const Content = styled.div`
+const Content = styled.p`
     margin-bottom: 20px;
     font-size: 1.2rem;
     color: #555;
     line-height: 1.6;
+    min-height: 450px;
+    max-height: 450px;
+    overflow-y: auto;
+    word-wrap: break-word; /* Prevent overflow */
     white-space: pre-wrap; /* Preserve whitespace and line breaks */
     padding: 20px;
     background-color: #f8f4f4;

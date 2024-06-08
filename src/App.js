@@ -18,9 +18,7 @@ const AppContainer = styled.div`
 const Content = styled.main`
     flex: 1;
     padding: 20px;
-    //margin-top: 80px; /* Header height */
-    //margin-bottom: 60px; /* Footer height */
-    overflow-y: auto; /* Enable scrolling */
+    /* overflow-y: hidden; */ // 안해도 되네
 `;
 
 
