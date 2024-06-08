@@ -1,17 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
-import { addPost } from '../redux/modules/postReducer';
+import {addPost} from '../redux/modules/postReducer';
 
 const AddPostForm = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [isFormValid, setIsFormValid] = useState(false); // 폼 유효성 상태
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();  // useNavigate 훅 사용
+    const navigate = useNavigate(); // useNavigate 훅 사용
+
+    useEffect(() => {
+        // 제목이 10글자 이상이고, 내용이 비어있지 않으면 폼이 유효하다고 설정
+        // setIsFormValid(title.length >= 10 && content.trim().length > 0);
+
+        setIsFormValid(title.trim().length > 0 && content.trim().length > 0);
+    }, [title, content]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (title.length < 10) {
+            alert('제목은 10글자 이상이어야 합니다.');
+            return;
+        }
 
         const newPost = {
             title: title,
@@ -19,7 +32,7 @@ const AddPostForm = () => {
         };
 
         dispatch(addPost(newPost));
-        
+
         setTitle('');
         setContent('');
         navigate('/');
@@ -44,7 +57,7 @@ const AddPostForm = () => {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}/>
                 </div>
-                <button type="submit">추가</button>
+                <button type="submit" disabled={!isFormValid}>추가</button>
             </form>
         </div>
 

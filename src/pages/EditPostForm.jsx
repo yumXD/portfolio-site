@@ -13,6 +13,7 @@ const EditPostForm = () => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [isFormValid, setIsFormValid] = useState(false); // 폼 유효성 상태
 
     // 게시물 정보를 상태에 설정
     useEffect(() => {
@@ -22,14 +23,28 @@ const EditPostForm = () => {
         }
     }, [post]);
 
+    useEffect(() => {
+        // 제목이 10글자 이상이고, 내용이 비어있지 않으면 폼이 유효하다고 설정
+        // setIsFormValid(title.length >= 10 && content.length > 0);
+
+        setIsFormValid(title.trim().length > 0 && content.trim().length > 0);
+    }, [title, content]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!post) 
             return; // If post is not found, do nothing
+
+        if (title.length < 10) {
+            alert('제목은 10글자 이상이어야 합니다.');
+            return;
+        }
+
         const updatedPost = {
             title: title,
             content: content
         };
+        
         dispatch(editPost(post.id, updatedPost));
         navigate(`/post/${post.id}`);
     };
@@ -57,7 +72,7 @@ const EditPostForm = () => {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}/>
                 </div>
-                <button type="submit">수정</button>
+                <button type="submit" disabled={!isFormValid}>수정</button>
                 <Link to={`/post/${post.id}`}>취소</Link>
             </form>
         </div>
