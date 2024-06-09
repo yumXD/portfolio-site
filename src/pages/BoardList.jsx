@@ -14,7 +14,6 @@ const BoardContainer = styled.div `
 
 const AddPostButton = styled(Link)`
     display: inline-block;
-    margin-bottom: 10px;
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: bold; // 700
@@ -47,7 +46,7 @@ const PostItem = styled.li`
     font-weight: bold;
 
     a {
-        color: #007bff;
+        color: #0b3e75;
         text-decoration: none;
 
         &:hover { // 사용자의 커서(마우스의 포인터)가 요소에 올라가 있을 때 적용
@@ -62,6 +61,12 @@ const NoPostsMessage = styled.p`
     text-align: center;
 `;
 
+const Count = styled.p`
+    display: inline-block;
+    margin: 0 20px;
+    font-size: 1.2rem;
+    color: #666;
+`;
 
 const BoardList = () => {
     const posts = useSelector(state => state.posts); // 단일 리듀서
@@ -69,6 +74,7 @@ const BoardList = () => {
 
     return (
         <BoardContainer>
+            <Count>총 게시글 수: {posts.length}</Count>
             <AddPostButton to="/add">게시물 추가</AddPostButton>
             {
                 posts.length === 0
@@ -78,7 +84,7 @@ const BoardList = () => {
                             {
                                 posts.map(post => (
                                     <PostItem key={post.id}>
-                                        <Link to={`/post/${post.id}`}>{post.title}</Link>
+                                        <Link to={`/post/${post.id}`}>{"✔️ "+post.title}</Link>
                                     </PostItem>
                                 ))
                             }

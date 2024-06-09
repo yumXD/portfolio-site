@@ -37,6 +37,19 @@ const Content = styled.p`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 `;
 
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center; // 요소 중앙
+    gap: 10px;
+`;
+
+const ButtonRow = styled.div`
+    display: flex;
+    justify-content: flex-start; // !
+    width: 100%;
+    gap: 10px;
+`;
 
 const DeleteButton = styled.button`
     padding: 10px 20px;
@@ -47,32 +60,33 @@ const DeleteButton = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
     &:hover {
         background-color: #ae6169;
     }
 `;
 
 const EditLink = styled(Link)`
+    display: inline-block;
     padding: 10px 20px;
     font-size: 1rem;
-    font-weight: bold;
     color: white;
+    font-weight: bold;
     background-color: #8bae69;
     border: none;
     border-radius: 5px;
     text-decoration: none;
+    text-align: center;
     &:hover {
         background-color: #667f4c;
     }
 `;
 
 const BackLink = styled(Link)`
-    display: block;
-    margin-top: 10px;
+    display: inline;
     font-size: 1rem;
     color: #007bff;
     text-decoration: none;
+    text-align: center;
     &:hover {
         text-decoration: underline;
     }
@@ -100,9 +114,13 @@ const PostDetail = () => {
         <DetailContainer>
             <Title>{post.title}</Title>
             <Content>{post.content}</Content>
-            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
-            <EditLink to={`/edit/${post.id}`}>게시물 수정하기</EditLink>
-            <BackLink to="/">게시물 목록으로 돌아가기</BackLink>
+            <ButtonContainer>
+                <ButtonRow>
+                    <EditLink to={`/edit/${post.id}`}>게시물 수정하기</EditLink>
+                    <DeleteButton onClick={handleDelete}>삭제</DeleteButton>                    
+                </ButtonRow>
+                <BackLink to="/">게시물 목록으로 돌아가기</BackLink>
+            </ButtonContainer>
         </DetailContainer>
     );
 };
