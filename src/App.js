@@ -31,10 +31,10 @@ const App = () => {
                 <Content>
             <Routes>
                 <Route index element={<BoardList />} /> {/* element={<BoardList />} :해당 URL로 접근할 때 렌더링할 컴포넌트를 지정 */}
-                <Route path="/add" element={<AddPostForm />} />
+                <Route path="/post" element={<AddPostForm />} />
                 {/* 동적 라우팅 설정 */}
                 <Route path="/post/:postId" element={<PostDetail />} />
-                <Route path="/edit/:postId" element={<EditPostForm />} />
+                <Route path="/post/:postId/edit" element={<EditPostForm />} />
             </Routes>
                 </Content>
                 <Footer />

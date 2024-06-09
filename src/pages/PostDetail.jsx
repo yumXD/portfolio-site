@@ -116,7 +116,7 @@ const PostDetail = () => {
             <Content>{post.content}</Content>
             <ButtonContainer>
                 <ButtonRow>
-                    <EditLink to={`/edit/${post.id}`}>게시물 수정하기</EditLink>
+                    <EditLink to={`/post/${post.id}/edit`}>게시물 수정하기</EditLink>
                     <DeleteButton onClick={handleDelete}>삭제</DeleteButton>                    
                 </ButtonRow>
                 <BackLink to="/">게시물 목록으로 돌아가기</BackLink>

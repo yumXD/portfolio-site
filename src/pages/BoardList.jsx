@@ -75,7 +75,7 @@ const BoardList = () => {
     return (
         <BoardContainer>
             <Count>총 게시글 수: {posts.length}</Count>
-            <AddPostButton to="/add">게시물 추가</AddPostButton>
+            <AddPostButton to="/post">게시물 추가</AddPostButton>
             {
                 posts.length === 0
                     ? (<NoPostsMessage>게시물이 존재하지 않습니다.</NoPostsMessage>)
