@@ -67,6 +67,12 @@ const Textarea = styled.textarea`
         outline: none;
     }
 `;
+const ButtonGroup = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+`;
 
 const SubmitButton = styled.button`
     padding: 10px 20px;
@@ -87,11 +93,9 @@ const SubmitButton = styled.button`
 `;
 
 const CancelLink = styled(Link)`
-    margin-top: 10px;
     font-size: 1rem;
     color: #007bff;
     text-decoration: none;
-    text-align: center;
     &:hover {
         text-decoration: underline;
     }
@@ -156,10 +160,12 @@ const AddPostForm = () => {
                         onChange={(e) => setContent(e.target.value)}
                     />
                 </FormGroup>
-                <SubmitButton type="submit" disabled={!isFormValid}>
-                    추가
-                </SubmitButton>
-                <CancelLink to="/">게시물 목록으로 돌아가기</CancelLink>
+                <ButtonGroup>
+                    <SubmitButton type="submit" disabled={!isFormValid}>
+                        추가
+                    </SubmitButton>
+                    <CancelLink to="/">게시물 목록으로 돌아가기</CancelLink>
+                </ButtonGroup>
             </StyledForm>
         </FormContainer>
     );
