@@ -106,8 +106,11 @@ const PostDetail = () => {
     }
 
     const handleDelete = () => {
-        dispatch(deletePost(post.id));
-        navigate('/');
+        const confirmed = window.confirm('정말로 이 게시물을 삭제하시겠습니까?');
+        if (confirmed) {
+            dispatch(deletePost(post.id));
+            navigate('/');
+        }
     };
 
     return (
