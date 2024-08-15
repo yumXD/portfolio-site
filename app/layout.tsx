@@ -1,5 +1,6 @@
 import {fonts} from './fonts'
 import {Providers} from './providers'
+import '../styles/reset.css';
 
 export default function RootLayout({
                                        children,
