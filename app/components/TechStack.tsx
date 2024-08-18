@@ -3,6 +3,7 @@ import {FaAws, FaGitAlt, FaGithub, FaJava, FaNodeJs, FaPython, FaReact, FaSlack}
 import {
     SiC,
     SiCplusplus,
+    SiFlask,
     SiIntellijidea,
     SiJavascript,
     SiMongodb,
@@ -50,6 +51,7 @@ export default async function TechStack() {
         SiMongodb: SiMongodb,
         SiMysql: SiMysql,
         SiNextdotjs: SiNextdotjs,
+        SiFlask: SiFlask,
         SiNotion: SiNotion,
         SiSpring: SiSpring,
         SiTypescript: SiTypescript,
