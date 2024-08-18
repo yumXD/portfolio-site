@@ -1,10 +1,8 @@
-'use client'
-
 import {Badge, Box, Divider, Flex, Highlight, HStack, Text, VStack} from '@chakra-ui/react';
 
 interface UserInfoProps {
     userName: string;
-    userStatus?: string | null; // status 대신 userStatus로 변경
+    userStatus?: string | null;
     intro: string;
     birthdate: string;
     role: string;

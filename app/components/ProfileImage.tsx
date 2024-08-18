@@ -1,9 +1,7 @@
-'use client'
-
 import {Image} from '@chakra-ui/react';
 
 interface ProfileImageProps {
-    imageUrl?: string | null; // 프로필 이미지 URL을 전달받기 위한 props, 선택적(optional)로 설정
+    imageUrl?: string | null;
 }
 
 const ProfileImage = ({imageUrl}: ProfileImageProps) => {

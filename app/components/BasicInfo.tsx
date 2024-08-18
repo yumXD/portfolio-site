@@ -1,7 +1,4 @@
-'use client';
-
-import {useEffect, useState} from 'react';
-import {Box, Flex, Grid, GridItem, Link, Spinner, Tooltip} from '@chakra-ui/react';
+import {Box, Flex, Grid, GridItem, Link, Tooltip} from '@chakra-ui/react';
 import {SiTistory} from "react-icons/si";
 import {FaGithub} from "react-icons/fa";
 import {HiOutlineMailOpen, HiPhone} from "react-icons/hi";
@@ -22,68 +19,41 @@ interface User {
     phoneNumber?: string | null;
 }
 
-const BasicInfo = () => {
-    const [user, setUser] = useState<User | null>(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_API_BASE_PATH}`);
-            const data = await response.json();
-            setUser(data);
-        };
-
-        fetchData();
-    }, []);
-
-    if (!user) {
-        return (
-            <Box
-                mt={6}
-                p={3}
-                maxWidth="1024px"
-                width="100%"
-                mx="auto"
-                minWidth="300px"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-            >
-                <Spinner size="xl"/>
-            </Box>
-        );
-    }
+const BasicInfo = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_API_BASE_PATH}`);
+    const data: User = await response.json();
 
     return (
         <Grid templateColumns={{base: "1fr", md: "1fr 3fr"}} gap={4} width="100%" p={6} maxWidth="1024px" mx="auto"
               minWidth="300px">
             <GridItem>
                 <Box display="flex" flexDirection="column" alignItems="center">
-                    <ProfileImage imageUrl={user.profilePic}/>
+                    <ProfileImage imageUrl={data.profilePic}/>
                     <Flex mt={4} justifyContent="space-around" width="100%" maxWidth={{base: "250px", md: "100%"}}>
-                        {user.blogUrl && (
+                        {data.blogUrl && (
                             <Tooltip label="티스토리">
-                                <Link href={user.blogUrl} isExternal>
+                                <Link href={data.blogUrl} isExternal>
                                     <SiTistory size="24px"/>
                                 </Link>
                             </Tooltip>
                         )}
-                        {user.githubUrl && (
+                        {data.githubUrl && (
                             <Tooltip label="깃허브">
-                                <Link href={user.githubUrl || undefined} isExternal>
+                                <Link href={data.githubUrl || undefined} isExternal>
                                     <FaGithub size="24px"/>
                                 </Link>
                             </Tooltip>
                         )}
-                        {user.email && (
-                            <Tooltip label={user.email}>
-                                <Link href={`mailto:${user.email}`} isExternal>
+                        {data.email && (
+                            <Tooltip label={data.email}>
+                                <Link href={`mailto:${data.email}`} isExternal>
                                     <HiOutlineMailOpen size="24px"/>
                                 </Link>
                             </Tooltip>
                         )}
-                        {user.phoneNumber && (
-                            <Tooltip label={user.phoneNumber}>
-                                <Link href={`tel:${user.phoneNumber}`} isExternal>
+                        {data.phoneNumber && (
+                            <Tooltip label={data.phoneNumber}>
+                                <Link href={`tel:${data.phoneNumber}`} isExternal>
                                     <HiPhone size="24px"/>
                                 </Link>
                             </Tooltip>
@@ -93,12 +63,12 @@ const BasicInfo = () => {
             </GridItem>
             <GridItem>
                 <UserInfo
-                    userName={user.name}
-                    userStatus={user.status}
-                    intro={user.bio || "자기소개가 없습니다."}
-                    birthdate={user.birthDate || "알 수 없음"}
-                    role={user.desiredJob || "미정"}
-                    education={user.education || "미정"}
+                    userName={data.name}
+                    userStatus={data.status}
+                    intro={data.bio || "자기소개가 없습니다."}
+                    birthdate={data.birthDate || "알 수 없음"}
+                    role={data.desiredJob || "미정"}
+                    education={data.education || "미정"}
                 />
             </GridItem>
         </Grid>
