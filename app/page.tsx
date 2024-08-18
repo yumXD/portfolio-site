@@ -1,6 +1,7 @@
 import {Box} from "@chakra-ui/react";
 import BasicInfo from "@/app/components/BasicInfo";
 import AboutMe from "@/app/components/AboutMe";
+import TechStack from "@/app/components/TechStack";
 
 function Page() {
 
@@ -8,6 +9,7 @@ function Page() {
         <Box p={8}>
             <BasicInfo/>
             <AboutMe/>
+            <TechStack/>
         </Box>
     );
 }
