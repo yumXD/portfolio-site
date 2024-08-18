@@ -1,11 +1,12 @@
-'use client'
+import {Box} from "@chakra-ui/react";
+import BasicInfo from "@/app/components/BasicInfo";
 
-import {Link} from '@chakra-ui/next-js'
-
-export default function Page() {
+function Page() {
     return (
-        <Link href='/about' color='blue.400' _hover={{color: 'blue.500'}}>
-            About
-        </Link>
-    )
+        <Box p={8}>
+            <BasicInfo/>
+        </Box>
+    );
 }
+
+export default Page;
