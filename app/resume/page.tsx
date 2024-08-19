@@ -1,20 +1,19 @@
 import {Box} from "@chakra-ui/react";
-import BasicInfo from "@/app/components/BasicInfo";
-import AboutMe from "@/app/components/AboutMe";
-import TechStack from "@/app/components/TechStack";
-import Education from "@/app/components/Education";
 import Certificates from "@/app/components/Certificates";
+import Education from "@/app/components/Education";
+import TechStack from "@/app/components/TechStack";
+import AboutMe from "@/app/components/AboutMe";
+import WithBasicInfoLayout from "@/app/layouts/WithBasicInfoLayout";
 
-function Page() {
+export default function Page() {
     return (
-        <Box p={8}>
-            <BasicInfo/>
-            <AboutMe/>
-            <TechStack/>
-            <Education/>
-            <Certificates/>
-        </Box>
+        <WithBasicInfoLayout>
+            <Box>
+                <AboutMe/>
+                <TechStack/>
+                <Education/>
+                <Certificates/>
+            </Box>
+        </WithBasicInfoLayout>
     );
 }
-
-export default Page;
