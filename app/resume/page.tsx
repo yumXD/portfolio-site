@@ -3,6 +3,7 @@ import WithBasicInfoLayout from "@/app/layouts/WithBasicInfoLayout";
 import {Metadata} from "next";
 import AboutMePage from "@/app/about-me/page";
 import TechStackPage from "@/app/tech-stack/page";
+import EducationPage from "@/app/education/page";
 
 export const metadata: Metadata = {
     title: "이력서",
@@ -15,6 +16,7 @@ export default function Page() {
             <Box>
                 <AboutMePage/>
                 <TechStackPage/>
+                <EducationPage/>
             </Box>
         </WithBasicInfoLayout>
     );

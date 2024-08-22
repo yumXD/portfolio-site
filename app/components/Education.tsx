@@ -22,7 +22,7 @@ import {
     useDisclosure,
     VStack
 } from "@chakra-ui/react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 interface Activity {
     id: number;
@@ -44,7 +44,11 @@ interface EducationData {
     achievements: Achievement[];
 }
 
-export default function Education() {
+interface EducationProps {
+    educationData: EducationData[];
+}
+
+export default function Education({educationData}: EducationProps) {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const [selectedEducation, setSelectedEducation] = useState<EducationData | null>(null);
 
@@ -52,19 +56,6 @@ export default function Education() {
         setSelectedEducation(education);
         onOpen();
     };
-
-    const [educationData, setEducationData] = useState<EducationData[]>([]);
-
-    useEffect(() => {
-        // API 호출
-        const fetchEducationData = async () => {
-            const res = await fetch('/api/education');
-            const data: EducationData[] = await res.json();
-            setEducationData(data);
-        };
-
-        fetchEducationData();
-    }, []);
 
     return (
         <Box
