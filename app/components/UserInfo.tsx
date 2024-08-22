@@ -1,4 +1,4 @@
-import {Badge, Box, Divider, Flex, Highlight, HStack, Text, VStack} from '@chakra-ui/react';
+import { Badge, Box, Divider, Flex, Highlight, HStack, Text, VStack } from '@chakra-ui/react';
 
 interface UserInfoProps {
     userName: string;
@@ -7,9 +7,10 @@ interface UserInfoProps {
     birthdate: string;
     role: string;
     education: string;
+    isMajor: boolean;
 }
 
-const UserInfo = ({userName, userStatus, intro, birthdate, role, education}: UserInfoProps) => {
+const UserInfo = ({ userName, userStatus, intro, birthdate, role, education, isMajor }: UserInfoProps) => {
     // birthdate를 YYYY-MM-DD 형식으로 변환하는 함수
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -73,12 +74,13 @@ const UserInfo = ({userName, userStatus, intro, birthdate, role, education}: Use
                     </Box>
                     <Box p={2} borderRadius="md" bg="gray.100">
                         <HStack>
-
                             <strong>학력 사항:</strong>
                             <Text>{education}</Text>
-                            <Badge ml='1' colorScheme='blue'>
-                                전공자
-                            </Badge>
+                            {isMajor && (  // 전공자일 경우에만 배지 표시
+                                <Badge ml='1' colorScheme='blue'>
+                                    전공자
+                                </Badge>
+                            )}
                         </HStack>
                     </Box>
                 </Flex>
