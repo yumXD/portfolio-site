@@ -13,55 +13,50 @@ import {
     SiPycharm,
     SiSpring,
     SiTypescript,
-    SiWebstorm
+    SiWebstorm,
 } from "react-icons/si";
 import {DiVisualstudio} from "react-icons/di";
 
 interface TechItem {
     id: number;
     name: string;
-    icon: string;  // 아이콘 이름을 문자열로 받음
+    icon: string;
     color: string;
 }
 
-interface TechStack {
-    name: string;
-    items: TechItem[];
+interface TechStackProps {
+    techStacks: {
+        name: string;
+        items: TechItem[];
+    }[];
 }
 
-export default async function TechStack() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_API_TECH_STACK_PATH}`, {
-        cache: 'no-store',
-    });
-    const techStacks: TechStack[] = await res.json();
+const iconsMap = {
+    FaAws: FaAws,
+    FaGitAlt: FaGitAlt,
+    FaGithub: FaGithub,
+    FaJava: FaJava,
+    FaNodeJs: FaNodeJs,
+    FaPython: FaPython,
+    FaReact: FaReact,
+    FaSlack: FaSlack,
+    SiC: SiC,
+    SiCplusplus: SiCplusplus,
+    SiJavascript: SiJavascript,
+    SiMongodb: SiMongodb,
+    SiMysql: SiMysql,
+    SiNextdotjs: SiNextdotjs,
+    SiFlask: SiFlask,
+    SiNotion: SiNotion,
+    SiSpring: SiSpring,
+    SiTypescript: SiTypescript,
+    SiWebstorm: SiWebstorm,
+    SiPycharm: SiPycharm,
+    SiIntellijidea: SiIntellijidea,
+    DiVisualstudio: DiVisualstudio,
+};
 
-    // 아이콘 매핑
-    const iconsMap = {
-        FaAws: FaAws,
-        FaGitAlt: FaGitAlt,
-        FaGithub: FaGithub,
-        FaJava: FaJava,
-        FaNodeJs: FaNodeJs,
-        FaPython: FaPython,
-        FaReact: FaReact,
-        FaSlack: FaSlack,
-        SiC: SiC,
-        SiCplusplus: SiCplusplus,
-        SiJavascript: SiJavascript,
-        SiMongodb: SiMongodb,
-        SiMysql: SiMysql,
-        SiNextdotjs: SiNextdotjs,
-        SiFlask: SiFlask,
-        SiNotion: SiNotion,
-        SiSpring: SiSpring,
-        SiTypescript: SiTypescript,
-        SiWebstorm: SiWebstorm,
-        SiPycharm: SiPycharm,
-        SiIntellijidea: SiIntellijidea,
-        DiVisualstudio: DiVisualstudio,
-    };
-
-
+export default function TechStackComponent({techStacks}: TechStackProps) {
     return (
         <Box mt={6} p={6} borderWidth="2px" borderRadius="lg" borderColor="gray.200" maxWidth="1024px" width="100%"
              mx="auto" minWidth="300px">

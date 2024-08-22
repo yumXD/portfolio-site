@@ -2,6 +2,7 @@ import {Box} from "@chakra-ui/react";
 import WithBasicInfoLayout from "@/app/layouts/WithBasicInfoLayout";
 import {Metadata} from "next";
 import AboutMePage from "@/app/about-me/page";
+import TechStackPage from "@/app/tech-stack/page";
 
 export const metadata: Metadata = {
     title: "이력서",
@@ -13,6 +14,7 @@ export default function Page() {
         <WithBasicInfoLayout>
             <Box>
                 <AboutMePage/>
+                <TechStackPage/>
             </Box>
         </WithBasicInfoLayout>
     );
