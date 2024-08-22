@@ -1,4 +1,4 @@
-import {Box, Divider, Grid, GridItem, Heading, Highlight, Stack, Text} from "@chakra-ui/react";
+import {Box, Divider, Grid, GridItem, Heading, Highlight, Stack, Text,} from "@chakra-ui/react";
 
 interface Certificate {
     id: number;
@@ -7,13 +7,23 @@ interface Certificate {
     dateIssued: string;
 }
 
-export default async function Certificates() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_API_CERT_PATH}`);
-    const certificates: Certificate[] = await res.json();
+interface CertificatesProps {
+    certificates: Certificate[];
+}
 
+export default function Certificates({certificates}: CertificatesProps) {
     return (
-        <Box mt={6} p={6} borderWidth="2px" borderRadius="lg" borderColor="gray.200" maxWidth="1024px" width="100%"
-             mx="auto" minWidth="300px">
+        <Box
+            mt={6}
+            p={6}
+            borderWidth="2px"
+            borderRadius="lg"
+            borderColor="gray.200"
+            maxWidth="1024px"
+            width="100%"
+            mx="auto"
+            minWidth="300px"
+        >
             <Heading size="md" mb={4}>자격증</Heading>
             <Divider orientation='horizontal' borderColor="gray.300" borderWidth="1px"/>
             <Grid templateColumns={{base: "repeat(1, 1fr)", md: "repeat(3, 1fr)"}} gap={2} mt={4}>
