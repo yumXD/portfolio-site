@@ -2,20 +2,25 @@
 
 import {Box, Divider, Grid, GridItem, Text, VStack} from '@chakra-ui/react';
 
-// 컴포넌트 내부에서 타입 정의
 interface Experience {
     id: number;
     content: string;
+    impact: string;
+    learning: string;
 }
 
 interface Habit {
     id: number;
     content: string;
+    impact: string;
+    learning: string;
 }
 
 interface Goal {
     id: number;
     content: string;
+    impact: string;
+    learning: string;
 }
 
 interface AboutMeProps {
@@ -35,7 +40,17 @@ export default function AboutMe({experiences, habits, goals}: AboutMeProps) {
                         <Divider orientation="horizontal" borderColor="gray.300" borderWidth="1px"/>
                         <VStack align="start" spacing={1} height="100%" justifyContent="center">
                             {experiences.map((experience) => (
-                                <Text key={experience.id} fontSize="15px">{experience.content}</Text>
+                                <VStack key={experience.id} align="start" spacing={1}>
+                                    <Text fontSize="15px" fontWeight="bold">
+                                        {experience.content}
+                                    </Text>
+                                    <Text fontSize="sm" color="gray.500">
+                                        임팩트: {experience.impact}
+                                    </Text>
+                                    <Text fontSize="sm" color="gray.500">
+                                        학습 포인트: {experience.learning}
+                                    </Text>
+                                </VStack>
                             ))}
                         </VStack>
                     </VStack>
@@ -47,7 +62,17 @@ export default function AboutMe({experiences, habits, goals}: AboutMeProps) {
                         <Divider orientation="horizontal" borderColor="gray.300" borderWidth="1px"/>
                         <VStack align="start" spacing={1}>
                             {habits.map((habit) => (
-                                <Text key={habit.id} fontSize="16px">{habit.content}</Text>
+                                <VStack key={habit.id} align="start" spacing={1}>
+                                    <Text fontSize="15px" fontWeight="bold">
+                                        {habit.content}
+                                    </Text>
+                                    <Text fontSize="sm" color="gray.500">
+                                        임팩트: {habit.impact}
+                                    </Text>
+                                    <Text fontSize="sm" color="gray.500">
+                                        학습 포인트: {habit.learning}
+                                    </Text>
+                                </VStack>
                             ))}
                         </VStack>
                     </VStack>
@@ -59,7 +84,17 @@ export default function AboutMe({experiences, habits, goals}: AboutMeProps) {
                         <Divider orientation="horizontal" borderColor="gray.300" borderWidth="1px"/>
                         <VStack align="start" spacing={1}>
                             {goals.map((goal) => (
-                                <Text key={goal.id} fontSize="16px">{goal.content}</Text>
+                                <VStack key={goal.id} align="start" spacing={1}>
+                                    <Text fontSize="15px" fontWeight="bold">
+                                        {goal.content}
+                                    </Text>
+                                    <Text fontSize="sm" color="gray.500">
+                                        임팩트: {goal.impact}
+                                    </Text>
+                                    <Text fontSize="sm" color="gray.500">
+                                        학습 포인트: {goal.learning}
+                                    </Text>
+                                </VStack>
                             ))}
                         </VStack>
                     </VStack>
