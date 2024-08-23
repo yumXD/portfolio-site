@@ -1,5 +1,5 @@
 import {Box, Divider, Grid, GridItem, HStack, Text, VStack} from "@chakra-ui/react";
-import {FaAws, FaGitAlt, FaGithub, FaJava, FaNodeJs, FaPython, FaReact, FaSlack} from "react-icons/fa";
+import {FaAws, FaGitAlt, FaGithub, FaJava, FaNodeJs, FaPython, FaReact, FaRocket, FaSlack} from "react-icons/fa";
 import {
     SiC,
     SiCplusplus,
@@ -46,6 +46,7 @@ const iconsMap = {
     SiMongodb: SiMongodb,
     SiMysql: SiMysql,
     SiNextdotjs: SiNextdotjs,
+    FaRocket: FaRocket,
     SiFlask: SiFlask,
     SiNotion: SiNotion,
     SiSpring: SiSpring,
