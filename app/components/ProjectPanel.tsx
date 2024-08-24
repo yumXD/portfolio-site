@@ -14,8 +14,9 @@ import {
     useDisclosure,
     VStack,
 } from "@chakra-ui/react";
+import ProjectModal from "@/app/components/ProjectModal";
 
-interface ProjectPanel {
+interface Project {
     id: number;
     name: string;
     description: string;
@@ -26,16 +27,29 @@ interface ProjectPanel {
     iconUrl: string;
     projectPanelFeatures: { name: string }[];
     projectPanelImages: { url: string; caption: string }[];
-    createdAt: string;
-    updatedAt: string;
+    projectModel: {
+        posterUrl?: string;  // 선택적 필드로 반영
+        videoUrl?: string;   // 선택적 필드로 반영
+        architectureUrl: string;
+        githubUrl: string;
+        projectTechStacks: { name: string; color: string }[];
+        projectImprovements: {
+            title: string;
+            descriptions: { label: string; content: string }[];
+            images: { url: string; caption: string }[];
+        }[];
+        projectTeamMembers: { role: string; name: string }[];
+        projectAchievements: { label: string; content: string }[];
+    } | null;
 }
 
 interface ProjectPanelProps {
-    project: ProjectPanel;
+    project: Project;
 }
 
 export default function ProjectPanel({project}: ProjectPanelProps) {
     const {isOpen, onOpen, onClose} = useDisclosure();
+
     return (
         <VStack align="start" spacing={2}>
             <HStack spacing={3}>
@@ -122,6 +136,9 @@ export default function ProjectPanel({project}: ProjectPanelProps) {
                     </Box>
                 </GridItem>
             </Grid>
+            {project.projectModel && (
+                <ProjectModal isOpen={isOpen} onClose={onClose} project={project}/>
+            )}
         </VStack>
     );
 }

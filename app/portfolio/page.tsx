@@ -9,22 +9,34 @@ export const metadata: Metadata = {
     description: "포트폴리오 사이트입니다."
 };
 
-interface ProjectPanel {
+interface Project {
     id: number;
-    iconUrl: string;
     name: string;
     description: string;
     roleBadge: string;
     roleName: string;
     roleColor: string;
     teamSize: number;
+    iconUrl: string;
     projectPanelFeatures: { name: string }[];
     projectPanelImages: { url: string; caption: string }[];
-    createdAt: string;
-    updatedAt: string;
+    projectModel: {
+        posterUrl?: string;  // 선택적 필드로 반영
+        videoUrl?: string;   // 선택적 필드로 반영
+        architectureUrl: string;
+        githubUrl: string;
+        projectTechStacks: { name: string; color: string }[];
+        projectImprovements: {
+            title: string;
+            descriptions: { label: string; content: string }[];
+            images: { url: string; caption: string }[];
+        }[];
+        projectTeamMembers: { role: string; name: string }[];
+        projectAchievements: { label: string; content: string }[];
+    } | null;
 }
 
-async function fetchProjects(): Promise<ProjectPanel[]> {
+async function fetchProjects(): Promise<Project[]> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects`, {
         cache: 'no-store', // SSR에서 항상 최신 데이터를 가져오기 위해 사용
     });

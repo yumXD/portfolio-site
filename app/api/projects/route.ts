@@ -1,4 +1,4 @@
-import {NextRequest, NextResponse} from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
@@ -8,12 +8,25 @@ export async function GET(req: NextRequest) {
             include: {
                 projectPanelFeatures: true,
                 projectPanelImages: true,
+                projectModel: {
+                    include: {
+                        projectTechStacks: true,
+                        projectImprovements: {
+                            include: {
+                                descriptions: true,
+                                images: true,
+                            },
+                        },
+                        projectTeamMembers: true,
+                        projectAchievements: true,
+                    },
+                },
             },
         });
 
         return NextResponse.json(projectPanel);
     } catch (error) {
         console.error("Failed to fetch projects:", error);
-        return NextResponse.json({error: 'Failed to fetch projects'}, {status: 500});
+        return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
     }
 }
