@@ -52,7 +52,7 @@ interface ProjectModalProps {
             projectImprovements: {
                 title: string;
                 descriptions: { label: string; content: string }[];
-                images: { url: string; caption: string }[];
+                images?: { url: string; caption: string }[];
             }[];
             projectTeamMembers: { role: string; name: string }[];
             projectAchievements: { label: string; content: string }[];
@@ -128,23 +128,27 @@ const ProjectModal = ({isOpen, onClose, project}: ProjectModalProps) => {
                                             </Text>
                                         </HStack>
                                     ))}
-                                    <HStack spacing={4} mt={4}>
-                                        {improvement.images.map((image, imgIndex) => (
-                                            <Box key={imgIndex} flex={improvement.images.length === 1 ? "0.5" : "1"}
-                                                 textAlign="left">
-                                                <Image
-                                                    src={image.url}
-                                                    alt={image.caption}
-                                                    borderRadius="lg"
-                                                    objectFit="cover"
-                                                    width="100%"
-                                                    height="auto"
-                                                />
-                                                <Text mt={1} fontSize="12px" color="gray.500"
-                                                      textAlign="center">{image.caption}</Text>
-                                            </Box>
-                                        ))}
-                                    </HStack>
+                                    {improvement.images && (
+                                        <HStack spacing={4} mt={4}>
+                                            {improvement.images.map((image, imgIndex) => (
+                                                <Box key={imgIndex}
+                                                     flex={improvement.images?.length === 1 ? "0.5" : "1"}
+                                                     textAlign="left">
+                                                    <Image
+                                                        src={image.url}
+                                                        alt={image.caption}
+                                                        borderRadius="lg"
+                                                        objectFit="cover"
+                                                        width="100%"
+                                                        height="auto"
+                                                    />
+                                                    <Text mt={1} fontSize="12px" color="gray.500" textAlign="center">
+                                                        {image.caption}
+                                                    </Text>
+                                                </Box>
+                                            ))}
+                                        </HStack>
+                                    )}
                                 </Box>
                             ))}
                         </Box>

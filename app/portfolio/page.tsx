@@ -31,7 +31,7 @@ interface Project {
         projectImprovements: {
             title: string;
             descriptions: { label: string; content: string }[];
-            images: { url: string; caption: string }[];
+            images?: { url: string; caption: string }[];
         }[];
         projectTeamMembers: { role: string; name: string }[];
         projectAchievements: { label: string; content: string }[];
