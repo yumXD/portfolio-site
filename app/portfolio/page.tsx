@@ -67,7 +67,7 @@ const Portfolio = async () => {
                 <Tabs>
                     <TabList>
                         {projects.map((project, index) => (
-                            <Tab key={index}>{project.name}</Tab>
+                            <Tab key={index}>{`프로젝트 ${index + 1}`}</Tab>
                         ))}
                     </TabList>
 

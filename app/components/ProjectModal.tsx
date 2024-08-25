@@ -109,7 +109,7 @@ const ProjectModal = ({isOpen, onClose, project}: ProjectModalProps) => {
                             </Wrap>
                         </Box>
                         <Box width="100%">
-                            <Text fontWeight="bold" color="teal.500">개선한 것</Text>
+                            <Text fontWeight="bold" color="teal.500">구현 혹은 개선한 것</Text>
                             {project.projectModel?.projectImprovements.map((improvement, index) => (
                                 <Box key={index} width="100%">
                                     <Text mt={2} mb={2} fontWeight="bold"
