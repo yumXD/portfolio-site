@@ -4,6 +4,8 @@ import WithBasicInfoLayout from "@/app/layouts/WithBasicInfoLayout";
 import {Metadata} from "next";
 import React from 'react';
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
     title: "포트폴리오",
     description: "포트폴리오 사이트입니다."

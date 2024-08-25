@@ -5,6 +5,7 @@ import AboutMePage from "@/app/about-me/page";
 import TechStackPage from "@/app/tech-stack/page";
 import EducationPage from "@/app/education/page";
 import CertificatesPage from "@/app/cert/page";
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "이력서",

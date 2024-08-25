@@ -1,4 +1,5 @@
 import Education from "@/app/components/Education";
+export const dynamic = "force-dynamic";
 
 export default async function EducationPage() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/education`, {

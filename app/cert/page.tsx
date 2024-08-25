@@ -1,4 +1,5 @@
 import Certificates from "@/app/components/Certificates";
+export const dynamic = "force-dynamic";
 
 export default async function CertificatesPage() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/certificates`, {

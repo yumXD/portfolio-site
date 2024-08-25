@@ -1,4 +1,5 @@
 import AboutMe from '../components/AboutMe';
+export const dynamic = "force-dynamic";
 
 async function getAboutMeData() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/about-me`, {

@@ -4,6 +4,7 @@ import {FaGithub} from "react-icons/fa";
 import {HiOutlineMailOpen, HiPhone} from "react-icons/hi";
 import ProfileImage from "../components/ProfileImage";
 import UserInfo from "../components/UserInfo";
+export const dynamic = "force-dynamic";
 
 export default async function UserPage() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user`, {
