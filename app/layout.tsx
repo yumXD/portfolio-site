@@ -4,7 +4,7 @@ import '../styles/reset.css';
 import {Metadata} from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const iconUrl = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_API_FAVICON_PATH}`)
+    const iconUrl = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/favicon-url`)
         .then(res => res.json())
         .then(data => data.iconUrl);
 
