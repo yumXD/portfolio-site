@@ -20,7 +20,10 @@ type IntroductionData = {
 };
 
 const fetchIntroductionData = async (): Promise<IntroductionData[]> => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/introduction`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/introduction`, {
+        cache: 'no-store', // SSR에서 항상 최신 데이터를 가져오기 위해 사용
+    });
+
     if (!response.ok) {
         throw new Error("Failed to fetch data");
     }
