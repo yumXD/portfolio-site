@@ -26,7 +26,14 @@ export default function Certificates({certificates}: CertificatesProps) {
         >
             <Heading size="md" mb={4}>자격증</Heading>
             <Divider orientation='horizontal' borderColor="gray.300" borderWidth="1px"/>
-            <Grid templateColumns={{base: "repeat(1, 1fr)", md: "repeat(3, 1fr)"}} gap={2} mt={4}>
+            <Grid templateColumns={{base: "repeat(1, 1fr)", md: "repeat(3, 1fr)"}} gap={2} mt={4}
+                  sx={{
+                      '@media print': {
+                          gridTemplateColumns: "repeat(3, 1fr)",
+                          gap: '4px',
+                      }
+                  }}
+            >
                 {certificates.map((certificate) => (
                     <GridItem key={certificate.id}>
                         <Stack direction="column" spacing={2}>

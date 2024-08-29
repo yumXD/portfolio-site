@@ -9,7 +9,12 @@ interface WithBasicInfoLayoutProps {
 
 export default function WithBasicInfoLayout({children}: WithBasicInfoLayoutProps) {
     return (
-        <Box p={8}>
+        <Box p={8} sx={{
+            '@media print': {
+                padding: '0',
+                width: '100%',
+            }
+        }}>
             <UserPage/>
             <Toggle/>
             {children}

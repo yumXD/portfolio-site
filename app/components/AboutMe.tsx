@@ -33,7 +33,14 @@ export default function AboutMe({experiences, habits, goals}: AboutMeProps) {
     return (
         <Box mt={6} p={6} borderWidth="2px" borderRadius="lg" borderColor="gray.200" maxWidth="1024px" width="100%"
              mx="auto" minWidth="300px">
-            <Grid templateColumns={{base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)'}} gap={6}>
+            <Grid templateColumns={{base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)'}} gap={6}
+                  sx={{
+                      '@media print': {
+                          gridTemplateColumns: "repeat(3, 1fr)",
+                          gap: '4px',
+                      }
+                  }}
+            >
                 <GridItem>
                     <VStack align="start" spacing={2} p={3} height="100%">
                         <Text fontSize="lg" fontWeight="bold">경험</Text>

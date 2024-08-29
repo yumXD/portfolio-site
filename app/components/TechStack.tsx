@@ -66,7 +66,14 @@ export default function TechStackComponent({techStacks}: TechStackProps) {
             </Text>
             <Divider orientation="horizontal" borderColor="gray.300" borderWidth="1px"/>
             <Grid mt={2} templateColumns={{base: "repeat(2, 1fr)", md: "repeat(6, 1fr)"}} gap={6} width="100%"
-                  height="100%">
+                  height="100%"
+                  sx={{
+                      '@media print': {
+                          gridTemplateColumns: "repeat(6, 1fr)",
+                          gap: '4px',
+                      }
+                  }}
+            >
                 {techStacks.map((techStack) => (
                     <GridItem key={techStack.name}>
                         <VStack align="start">

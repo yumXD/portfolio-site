@@ -25,6 +25,13 @@ export default async function UserPage() {
             maxWidth="1024px"
             mx="auto"
             minWidth="300px"
+            sx={{
+                '@media print': {
+                    gridTemplateColumns: "1fr 3fr",
+                    gap: 0,
+                    padding: 0,
+                }
+            }}
         >
             <GridItem>
                 <Box display="flex" flexDirection="column" alignItems="center">
