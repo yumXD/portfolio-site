@@ -76,10 +76,10 @@ export default function Education({educationData}: EducationProps) {
             <Grid templateColumns={{base: "repeat(1, 1fr)", md: "repeat(3, 1fr)"}} gap={6} mt={4}
                   sx={{
                       '@media print': {
-                          display: 'none',  // 인쇄 시 이 그리드 부분을 숨김
+                          gridTemplateColumns: "repeat(3, 1fr)",
+                          gap: '4px',
                       }
-                  }}
-            >
+                  }}>
                 {educationData.map((education) => (
                     <Tooltip label="클릭해주세요!" fontSize="md" key={education.id}>
                         <GridItem
@@ -104,22 +104,16 @@ export default function Education({educationData}: EducationProps) {
                 ))}
             </Grid>
 
-            {/* 선택된 교육 내용을 모달로 표시 */}
             {selectedEducation && (
                 <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} isCentered>
-                    <ModalOverlay />
+                    <ModalOverlay/>
                     <ModalContent
                         maxWidth={{base: "90vw", md: "800px"}}
                         maxHeight={{base: "90vh", md: "80vh"}}
                         overflowY="auto"
-                        sx={{
-                            '@media print': {
-                                display: 'none',  // 인쇄 시 모달을 숨김
-                            }
-                        }}
                     >
                         <ModalHeader>{selectedEducation.program}</ModalHeader>
-                        <ModalCloseButton />
+                        <ModalCloseButton/>
                         <ModalBody>
                             <HStack>
                                 <Text mt={2}>{selectedEducation.institution}</Text>
@@ -154,48 +148,6 @@ export default function Education({educationData}: EducationProps) {
                         </ModalFooter>
                     </ModalContent>
                 </Modal>
-            )}
-
-            {/* 인쇄 시 표시될 선택된 교육 내용 */}
-            {selectedEducation && (
-                <Box
-                    mt={6}
-                    p={4}
-                    borderWidth="1px"
-                    borderRadius="md"
-                    borderColor="gray.300"
-                    sx={{
-                        '@media print': {
-                            display: 'block',  // 인쇄 시 이 내용을 표시
-                        },
-                        display: 'none'  // 화면에서는 숨김
-                    }}
-                >
-                    <Heading as="h3" size="md" mb={4}>{selectedEducation.program}</Heading>
-                    <HStack>
-                        <Text mt={2}>{selectedEducation.institution}</Text>
-                        <Badge mt={2} colorScheme="purple">{selectedEducation.courseType}</Badge>
-                    </HStack>
-                    <Text fontSize="sm" color="gray.500">
-                        {selectedEducation.period}
-                    </Text>
-                    <Divider my={4} />
-                    <VStack spacing={6} align="stretch">
-                        <Flex direction="column" p={4} gap={2} borderWidth="1px" borderRadius="md" borderColor="gray.300">
-                            <Text fontWeight="bold" fontSize="md">활동 내용</Text>
-                            {selectedEducation.activities.map((activity) => (
-                                <Text key={activity.id}>{activity.description}</Text>
-                            ))}
-                        </Flex>
-
-                        <Flex direction="column" p={4} gap={2} borderWidth="1px" borderRadius="md" borderColor="gray.300">
-                            <Text fontWeight="bold" fontSize="md">성과</Text>
-                            {selectedEducation.achievements.map((achievement) => (
-                                <Text key={achievement.id}>{achievement.description}</Text>
-                            ))}
-                        </Flex>
-                    </VStack>
-                </Box>
             )}
         </Box>
     );
