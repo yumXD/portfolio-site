@@ -1,17 +1,19 @@
-import { Badge, Box, Divider, Flex, Highlight, HStack, Text, VStack } from '@chakra-ui/react';
+import {Badge, Box, Divider, Flex, Highlight, HStack, Text, VStack} from '@chakra-ui/react';
 
 interface UserInfoProps {
-    userName: string;
-    userStatus?: string | null;
-    intro: string;
-    birthdate: string;
-    role: string;
-    education: string;
-    isMajor: boolean;
+    data: {
+        name: string;
+        status: string;
+        bio: string;
+        birthDate: string;
+        desiredJob: string;
+        education: string;
+        isMajor: boolean;
+    };
 }
 
-const UserInfo = ({ userName, userStatus, intro, birthdate, role, education, isMajor }: UserInfoProps) => {
-    // birthdate를 YYYY-MM-DD 형식으로 변환하는 함수
+const UserInfo = ({data}: UserInfoProps) => {
+    // birthDate를 YYYY-MM-DD 형식으로 변환하는 함수
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
@@ -35,29 +37,27 @@ const UserInfo = ({ userName, userStatus, intro, birthdate, role, education, isM
         <Box p={4} borderRadius="md" borderWidth="10px" borderColor="gray.200">
             <VStack align="start" spacing={2}>
                 <Text fontSize="3xl" fontWeight="bold">
-                    {userName}
-                    {userStatus && ( // userStatus가 있을 때만 Badge를 렌더링
-                        <Badge ml='1' colorScheme='green'>
-                            {userStatus}
-                        </Badge>
-                    )}
+                    {data.name}
+                    <Badge ml='1' colorScheme='green'>
+                        {data.status}
+                    </Badge>
                 </Text>
                 <Divider orientation='horizontal' borderColor="gray.300" borderWidth="2px"/>
                 <Text fontSize="lg" fontWeight="semibold" color="gray.700">
                     <Highlight
-                        query={userName}
+                        query={data.name}
                         styles={{px: '2', py: '1', rounded: 'full', bg: 'red.100'}}
                     >
-                        {intro}
+                        {data.bio}
                     </Highlight>
                 </Text>
                 <Flex direction="column" width="100%">
                     <Box p={2} borderRadius="md" bg="gray.100" mb={2}>
                         <HStack>
                             <strong>생년월일:</strong>
-                            <Text>{formatDate(birthdate)}</Text>
+                            <Text>{formatDate(data.birthDate)}</Text>
                             <Badge ml='1' colorScheme='pink'>
-                                만 {calculateAge(birthdate)}세
+                                만 {calculateAge(data.birthDate)}세
                             </Badge>
                         </HStack>
                     </Box>
@@ -65,18 +65,18 @@ const UserInfo = ({ userName, userStatus, intro, birthdate, role, education, isM
                         <Text fontSize="md">
                             <strong>희망직무:</strong>
                             <Highlight
-                                query={role}
+                                query={data.desiredJob}
                                 styles={{px: '2', py: '1', rounded: 'full', bg: 'red.100'}}
                             >
-                                {role}
+                                {data.desiredJob}
                             </Highlight>
                         </Text>
                     </Box>
                     <Box p={2} borderRadius="md" bg="gray.100">
                         <HStack>
                             <strong>학력 사항:</strong>
-                            <Text>{education}</Text>
-                            {isMajor && (  // 전공자일 경우에만 배지 표시
+                            <Text>{data.education}</Text>
+                            {data.isMajor && (  // 전공자일 경우에만 배지 표시
                                 <Badge ml='1' colorScheme='blue'>
                                     전공자
                                 </Badge>

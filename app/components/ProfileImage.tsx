@@ -1,13 +1,15 @@
 import {Image} from '@chakra-ui/react';
 
 interface ProfileImageProps {
-    imageUrl?: string | null;
+    data: {
+        profilePic: string;
+    };
 }
 
-const ProfileImage = ({imageUrl}: ProfileImageProps) => {
+const ProfileImage = ({data}: ProfileImageProps) => {
     return (
         <Image
-            src={imageUrl || "https://via.placeholder.com/250"}
+            src={data.profilePic}
             alt="photo"
             borderRadius='md'
             objectFit="cover"

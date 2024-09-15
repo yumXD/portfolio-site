@@ -1,9 +1,8 @@
-import {Box, Flex, Grid, GridItem, Link, Tooltip} from '@chakra-ui/react';
-import {SiTistory} from "react-icons/si";
-import {FaGithub} from "react-icons/fa";
-import {HiOutlineMailOpen, HiPhone} from "react-icons/hi";
+import {Box, Grid, GridItem} from '@chakra-ui/react';
 import ProfileImage from "../components/ProfileImage";
 import UserInfo from "../components/UserInfo";
+import SocialLinks from "@/app/components/SocialLinks";
+
 export const dynamic = "force-dynamic";
 
 export default async function UserPage() {
@@ -35,49 +34,12 @@ export default async function UserPage() {
         >
             <GridItem>
                 <Box display="flex" flexDirection="column" alignItems="center">
-                    <ProfileImage imageUrl={user.profilePic}/>
-                    <Flex mt={4} justifyContent="space-around" width="100%" maxWidth={{base: "250px", md: "100%"}}>
-                        {user.blogUrl && (
-                            <Tooltip label="티스토리">
-                                <Link href={user.blogUrl} isExternal>
-                                    <SiTistory size="24px"/>
-                                </Link>
-                            </Tooltip>
-                        )}
-                        {user.githubUrl && (
-                            <Tooltip label="깃허브">
-                                <Link href={user.githubUrl || undefined} isExternal>
-                                    <FaGithub size="24px"/>
-                                </Link>
-                            </Tooltip>
-                        )}
-                        {user.email && (
-                            <Tooltip label={user.email}>
-                                <Link href={`mailto:${user.email}`} isExternal>
-                                    <HiOutlineMailOpen size="24px"/>
-                                </Link>
-                            </Tooltip>
-                        )}
-                        {user.phoneNumber && (
-                            <Tooltip label={user.phoneNumber}>
-                                <Link href={`tel:${user.phoneNumber}`} isExternal>
-                                    <HiPhone size="24px"/>
-                                </Link>
-                            </Tooltip>
-                        )}
-                    </Flex>
+                    <ProfileImage data={user}/>
+                    <SocialLinks data={user}/>
                 </Box>
             </GridItem>
             <GridItem>
-                <UserInfo
-                    userName={user.name}
-                    userStatus={user.status}
-                    intro={user.bio || "자기소개가 없습니다."}
-                    birthdate={user.birthDate || "알 수 없음"}
-                    role={user.desiredJob || "미정"}
-                    education={user.education || "미정"}
-                    isMajor={user.isMajor}
-                />
+                <UserInfo data={user}/>
             </GridItem>
         </Grid>
     );
