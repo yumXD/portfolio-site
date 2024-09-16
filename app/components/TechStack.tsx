@@ -1,6 +1,6 @@
 'use client'
 
-import {useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {Box, Button, Divider, Grid, GridItem, HStack, Input, Select, Text, VStack} from '@chakra-ui/react';
 import * as FaIcons from 'react-icons/fa'; // Fa icons
 import * as SiIcons from 'react-icons/si'; // Si icons
@@ -39,20 +39,28 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
     const [newStack, setNewStack] = useState({name: '', items: [{name: '', icon: '', color: ''}]});
     const [showNewStackForm, setShowNewStackForm] = useState(false); // 새로운 스택 입력 폼 표시 여부
     const [showNewItemForm, setShowNewItemForm] = useState<number | null>(null); // 기존 스택에 아이템 추가 폼 표시 여부
+    const [iconSearch, setIconSearch] = useState(''); // 아이콘 검색 상태
+    const [debouncedSearch, setDebouncedSearch] = useState(''); // 디바운스 처리된 검색어
 
-    // 토글 방식으로 새로운 스택 입력 폼을 보여줌
-    const toggleNewStackForm = () => {
-        setShowNewStackForm((prev) => !prev);
-    };
+    // 모든 아이콘을 하나의 배열로 합침
+    const allIcons = useMemo(() => Object.keys(FaIcons).concat(Object.keys(SiIcons), Object.keys(DiIcons)), []);
 
-    // 토글 방식으로 새로운 아이템 입력 폼을 특정 스택에 보여줌
-    const toggleNewItemForm = (stackId: number) => {
-        if (showNewItemForm === stackId) {
-            setShowNewItemForm(null); // 이미 열려 있으면 닫기
-        } else {
-            setShowNewItemForm(stackId); // 해당 스택에 열기
-        }
-    };
+    // 디바운스를 이용해 일정 시간 이후에만 검색어 업데이트
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearch(iconSearch);
+        }, 300); // 300ms 지연
+
+        return () => {
+            clearTimeout(handler); // 이전 타이머를 취소
+        };
+    }, [iconSearch]);
+
+    // 디바운스된 검색어로 아이콘 필터링
+    const filteredIcons = useMemo(
+        () => allIcons.filter((iconName) => iconName.toLowerCase().includes(debouncedSearch.toLowerCase())),
+        [debouncedSearch, allIcons]
+    );
 
     // 기존 기술 스택에 아이템 추가
     const addItemToStack = async (stackId: number) => {
@@ -72,15 +80,6 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
         });
 
         if (response.ok) {
-            const updatedStackData = await response.json();
-            setTechStacks(
-                techStacks.map((stack) =>
-                    stack.id === stackId ? updatedStackData : stack
-                )
-            );
-            setNewItem({name: '', icon: '', color: ''}); // 입력값 초기화
-            setShowNewItemForm(null); // 입력 폼 닫기
-
             window.location.reload(); // 강제 새로고침
         } else {
             console.error('Failed to add item to stack');
@@ -96,11 +95,6 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
         });
 
         if (response.ok) {
-            const newTechStack = await response.json();
-            setTechStacks([...techStacks, newTechStack]); // 새로 추가된 스택을 리스트에 추가
-            setNewStack({name: '', items: [{name: '', icon: '', color: ''}]}); // 입력값 초기화
-            setShowNewStackForm(false); // 폼 닫기
-
             window.location.reload(); // 강제 새로고침
         } else {
             console.error('Failed to create new stack');
@@ -116,8 +110,6 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
         });
 
         if (response.ok) {
-            setTechStacks(techStacks.filter((stack) => stack.id !== stackId));
-
             window.location.reload(); // 강제 새로고침
         } else {
             console.error('Failed to delete stack');
@@ -142,13 +134,6 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
         });
 
         if (response.ok) {
-            const updatedStackData = await response.json();
-            setTechStacks(
-                techStacks.map((stack) =>
-                    stack.id === stackId ? updatedStackData : stack
-                )
-            );
-
             window.location.reload(); // 강제 새로고침
         } else {
             console.error('Failed to delete item');
@@ -164,7 +149,7 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
             <Divider orientation="horizontal" borderColor="gray.300" borderWidth="1px"/>
 
             {/* 새로운 스택 추가 섹션 */}
-            <Button colorScheme="blue" onClick={toggleNewStackForm}>
+            <Button colorScheme="blue" onClick={() => setShowNewStackForm((prev) => !prev)}>
                 {showNewStackForm ? '새로운 스택 닫기' : '새로운 스택 추가'}
             </Button>
             {showNewStackForm && (
@@ -187,6 +172,12 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
                                     setNewStack({...newStack, items: updatedItems});
                                 }}
                             />
+                            {/* 아이콘 검색 입력 필드 */}
+                            <Input
+                                placeholder="아이콘 검색"
+                                value={iconSearch}
+                                onChange={(e) => setIconSearch(e.target.value)}
+                            />
                             <Select
                                 placeholder="아이콘 선택"
                                 value={item.icon}
@@ -197,13 +188,12 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
                                     setNewStack({...newStack, items: updatedItems});
                                 }}
                             >
-                                {Object.keys(FaIcons)
-                                    .concat(Object.keys(SiIcons), Object.keys(DiIcons))
-                                    .map((iconKey) => (
-                                        <option key={iconKey} value={iconKey}>
-                                            {iconKey}
-                                        </option>
-                                    ))}
+                                {/* 필터링된 아이콘 목록 */}
+                                {filteredIcons.map((iconKey) => (
+                                    <option key={iconKey} value={iconKey}>
+                                        {iconKey}
+                                    </option>
+                                ))}
                             </Select>
                             <Input
                                 placeholder="색상 (hex)"
@@ -246,7 +236,7 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
                             </VStack>
 
                             {/* 새로운 아이템 추가 버튼 */}
-                            <Button colorScheme="blue" onClick={() => toggleNewItemForm(stack.id)}>
+                            <Button colorScheme="blue" onClick={() => setShowNewItemForm(stack.id)}>
                                 {showNewItemForm === stack.id ? '아이템 추가 닫기' : '아이템 추가'}
                             </Button>
                             {showNewItemForm === stack.id && (
@@ -256,18 +246,21 @@ export default function TechStackComponent({techStacks: initialData}: TechStackP
                                         value={newItem.name}
                                         onChange={(e) => setNewItem({...newItem, name: e.target.value})}
                                     />
+                                    <Input
+                                        placeholder="아이콘 검색"
+                                        value={iconSearch}
+                                        onChange={(e) => setIconSearch(e.target.value)}
+                                    />
                                     <Select
                                         placeholder="아이콘 선택"
                                         value={newItem.icon}
                                         onChange={(e) => setNewItem({...newItem, icon: e.target.value})}
                                     >
-                                        {Object.keys(FaIcons)
-                                            .concat(Object.keys(SiIcons), Object.keys(DiIcons))
-                                            .map((iconKey) => (
-                                                <option key={iconKey} value={iconKey}>
-                                                    {iconKey}
-                                                </option>
-                                            ))}
+                                        {filteredIcons.map((iconKey) => (
+                                            <option key={iconKey} value={iconKey}>
+                                                {iconKey}
+                                            </option>
+                                        ))}
                                     </Select>
                                     <Input
                                         placeholder="색상 (hex)"
