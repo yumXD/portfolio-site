@@ -34,9 +34,9 @@ const IntroductionPage = async () => {
     const data = await fetchIntroductionData();
 
     return (
-        <WithBasicInfoLayout>
+        // <WithBasicInfoLayout>
             <Introduction data={data} />
-        </WithBasicInfoLayout>
+        // </WithBasicInfoLayout>
     );
 }
 
