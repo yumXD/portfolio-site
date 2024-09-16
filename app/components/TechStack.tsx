@@ -1,24 +1,26 @@
-import {Box, Divider, Grid, GridItem, HStack, Text, VStack} from "@chakra-ui/react";
-import {FaAws, FaGitAlt, FaGithub, FaJava, FaNodeJs, FaPython, FaReact, FaRocket, FaSlack} from "react-icons/fa";
-import {
-    SiC,
-    SiCplusplus,
-    SiFlask,
-    SiIntellijidea,
-    SiJavascript,
-    SiMongodb,
-    SiMysql,
-    SiNextdotjs,
-    SiNotion,
-    SiPycharm,
-    SiSpring,
-    SiTypescript,
-    SiWebstorm,
-} from "react-icons/si";
-import {DiVisualstudio} from "react-icons/di";
+'use client'
+
+import {useState} from 'react';
+import {Box, Divider, Grid, GridItem, HStack, Text, VStack} from '@chakra-ui/react';
+import * as FaIcons from 'react-icons/fa'; // Fa icons
+import * as SiIcons from 'react-icons/si'; // Si icons
+import * as DiIcons from 'react-icons/di'; // Di icons
+
+// 모든 아이콘 라이브러리를 미리 import한 후 아이콘을 매칭하는 함수
+const getIconComponent = (iconName: string) => {
+    // 아이콘이 "Fa"로 시작하면 FaIcons에서 가져오고, "Si"로 시작하면 SiIcons, "Di"로 시작하면 DiIcons에서 가져옴
+    if (iconName.startsWith('Fa')) {
+        return FaIcons[iconName as keyof typeof FaIcons] || null;
+    } else if (iconName.startsWith('Si')) {
+        return SiIcons[iconName as keyof typeof SiIcons] || null;
+    } else if (iconName.startsWith('Di')) {
+        return DiIcons[iconName as keyof typeof DiIcons] || null;
+    }
+    return null;
+};
 
 interface TechItem {
-    id: number;
+    id?: number;
     name: string;
     icon: string;
     color: string;
@@ -26,38 +28,15 @@ interface TechItem {
 
 interface TechStackProps {
     techStacks: {
+        id: number;
         name: string;
         items: TechItem[];
     }[];
 }
 
-const iconsMap = {
-    FaAws: FaAws,
-    FaGitAlt: FaGitAlt,
-    FaGithub: FaGithub,
-    FaJava: FaJava,
-    FaNodeJs: FaNodeJs,
-    FaPython: FaPython,
-    FaReact: FaReact,
-    FaSlack: FaSlack,
-    SiC: SiC,
-    SiCplusplus: SiCplusplus,
-    SiJavascript: SiJavascript,
-    SiMongodb: SiMongodb,
-    SiMysql: SiMysql,
-    SiNextdotjs: SiNextdotjs,
-    FaRocket: FaRocket,
-    SiFlask: SiFlask,
-    SiNotion: SiNotion,
-    SiSpring: SiSpring,
-    SiTypescript: SiTypescript,
-    SiWebstorm: SiWebstorm,
-    SiPycharm: SiPycharm,
-    SiIntellijidea: SiIntellijidea,
-    DiVisualstudio: DiVisualstudio,
-};
+export default function TechStackComponent({techStacks: initialData}: TechStackProps) {
+    const [techStacks, setTechStacks] = useState(initialData);
 
-export default function TechStackComponent({techStacks}: TechStackProps) {
     return (
         <Box mt={6} p={6} borderWidth="2px" borderRadius="lg" borderColor="gray.200" maxWidth="1024px" width="100%"
              mx="auto" minWidth="300px">
@@ -65,8 +44,7 @@ export default function TechStackComponent({techStacks}: TechStackProps) {
                 기술 스택
             </Text>
             <Divider orientation="horizontal" borderColor="gray.300" borderWidth="1px"/>
-            <Grid mt={2} templateColumns={{base: "repeat(2, 1fr)", md: "repeat(6, 1fr)"}} gap={6} width="100%"
-                  height="100%"
+            <Grid mt={2} templateColumns={{base: 'repeat(2, 1fr)', md: 'repeat(6, 1fr)'}} gap={6}
                   sx={{
                       '@media print': {
                           gridTemplateColumns: "repeat(6, 1fr)",
@@ -74,15 +52,15 @@ export default function TechStackComponent({techStacks}: TechStackProps) {
                       }
                   }}
             >
-                {techStacks.map((techStack) => (
-                    <GridItem key={techStack.name}>
+                {techStacks.map((stack) => (
+                    <GridItem key={stack.id}>
                         <VStack align="start">
                             <Text fontSize="xl" fontWeight="semibold">
-                                {techStack.name}
+                                {stack.name}
                             </Text>
                             <VStack spacing={2} align="start">
-                                {techStack.items.map((item) => {
-                                    const IconComponent = iconsMap[item.icon as keyof typeof iconsMap];
+                                {stack.items.map((item) => {
+                                    const IconComponent = getIconComponent(item.icon); // 아이콘을 동적으로 가져옴
                                     return (
                                         <HStack spacing={2} key={item.id}>
                                             {IconComponent && <IconComponent size="24px" color={item.color}/>}
