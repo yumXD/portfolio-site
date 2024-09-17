@@ -1,6 +1,5 @@
 import {Box, Divider, Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react";
 import ProjectPanel from "../components/ProjectPanel";
-import WithBasicInfoLayout from "@/app/layouts/WithBasicInfoLayout";
 import {Metadata} from "next";
 import React, {Fragment} from "react";
 
@@ -20,21 +19,22 @@ interface Project {
     roleColor: string;
     teamSize: number;
     iconUrl: string;
-    projectPanelFeatures: { name: string }[];
-    projectPanelImages: { url: string; caption: string }[];
+    projectPanelFeatures: { id: number; name: string }[];
+    projectPanelImages: { id: number; url: string; caption: string }[];
     projectModel: {
-        posterUrl?: string; // 선택적 필드로 반영
-        videoUrl?: string; // 선택적 필드로 반영
+        posterUrl?: string;
+        videoUrl?: string;
         architectureUrl: string;
         githubUrl: string;
-        projectTechStacks: { name: string; color: string }[];
+        projectTechStacks: { id: number; name: string; color: string }[];
         projectImprovements: {
+            id: number;
             title: string;
-            descriptions: { label: string; content: string }[];
-            images?: { url: string; caption: string }[];
+            descriptions: { id: number; label: string; content: string }[];
+            images?: { id: number; url: string; caption: string }[];
         }[];
-        projectTeamMembers: { role: string; name: string }[];
-        projectAchievements: { label: string; content: string }[];
+        projectTeamMembers: { id: number; role: string; name: string }[];
+        projectAchievements: { id: number; label: string; content: string }[];
     } | null;
 }
 
@@ -54,50 +54,50 @@ const Portfolio = async () => {
     const projects = await fetchProjects();
 
     return (
-        <WithBasicInfoLayout>
-            <Box
-                mt={6}
-                p={2}
-                borderWidth="2px"
-                borderRadius="lg"
-                borderColor="gray.200"
-                maxWidth="1024px"
-                width="100%"
-                mx="auto"
-                minWidth="300px"
-            >
-                {/* 화면에서는 Tabs 컴포넌트가 보임 */}
-                <Box sx={{"@media print": {display: "none"}}}>
-                    <Tabs>
-                        <TabList>
-                            {projects.map((project, index) => (
-                                <Tab key={index}>{`프로젝트 ${index + 1}`}</Tab>
-                            ))}
-                        </TabList>
+        // <WithBasicInfoLayout>
+        <Box
+            mt={6}
+            p={2}
+            borderWidth="2px"
+            borderRadius="lg"
+            borderColor="gray.200"
+            maxWidth="1024px"
+            width="100%"
+            mx="auto"
+            minWidth="300px"
+        >
+            {/* 화면에서는 Tabs 컴포넌트가 보임 */}
+            <Box sx={{"@media print": {display: "none"}}}>
+                <Tabs>
+                    <TabList>
+                        {projects.map((project, index) => (
+                            <Tab key={index}>{`프로젝트 ${index + 1}`}</Tab>
+                        ))}
+                    </TabList>
 
-                        <TabPanels>
-                            {projects.map((project) => (
-                                <TabPanel key={project.id}>
-                                    <ProjectPanel project={project}/>
-                                </TabPanel>
-                            ))}
-                        </TabPanels>
-                    </Tabs>
-                </Box>
-
-                {/* 인쇄 시 모든 프로젝트를 연달아 표시하고 Tabs 컴포넌트는 숨김 */}
-                <Box display="none" sx={{"@media print": {display: "block"}}}>
-                    {projects.map((project) => (
-                        <Fragment key={project.id}>
-                            <Box mt={4}>
+                    <TabPanels>
+                        {projects.map((project) => (
+                            <TabPanel key={project.id}>
                                 <ProjectPanel project={project}/>
-                            </Box>
-                            {projects.length > 1 && <Divider my={4} borderColor="gray.300"/>}
-                        </Fragment>
-                    ))}
-                </Box>
+                            </TabPanel>
+                        ))}
+                    </TabPanels>
+                </Tabs>
             </Box>
-        </WithBasicInfoLayout>
+
+            {/* 인쇄 시 모든 프로젝트를 연달아 표시하고 Tabs 컴포넌트는 숨김 */}
+            <Box display="none" sx={{"@media print": {display: "block"}}}>
+                {projects.map((project) => (
+                    <Fragment key={project.id}>
+                        <Box mt={4}>
+                            <ProjectPanel project={project}/>
+                        </Box>
+                        {projects.length > 1 && <Divider my={4} borderColor="gray.300"/>}
+                    </Fragment>
+                ))}
+            </Box>
+        </Box>
+        // </WithBasicInfoLayout>
     );
 };
 
